@@ -5,17 +5,20 @@ library(tidyverse)
 carData = mtcars
 carData$car = row.names(carData)
 
-createAd(carData[1,])
 
 #a)
 createAd <- function(vehicleData){
-  paste(vehicleData$car, 
-        "Horsepower:",vehicleData$hp, 
-        "Cylinders:", vehicleData$cyl, 
-        "Fuel Efficiency:", vehicleData$mpg, 
-        "1/4 mile time:", vehicleData$qsec, 
+  vehicleData %>%
+    sample_n(1) -> df
+  paste(df$car, 
+        "Horsepower:",df$hp, 
+        "Cylinders:", df$cyl, 
+        "Fuel Efficiency:", df$mpg, 
+        "1/4 mile time:", df$qsec, 
         sep=" ")
 }
+
+createAd(carData)
 
 
 #b)
@@ -39,7 +42,9 @@ createFormattedAd <- function(vehicleData){
   cat(output)
 }
 
-createFormattedAd(carData[3,])
+carData %>%
+  sample_n(1) %>%
+  createFormattedAd()
 
 
 #c)
@@ -75,7 +80,9 @@ createFormattedAdWithComparison <- function(vehicleData){
   cat(output)
 }
 
-createFormattedAdWithComparison(carData[1,])
+carData %>%
+  sample_n(1) %>%
+  createFormattedAdWithComparison()
 
 #d)
 createFormattedAdsWithComparisons <- function(vehicleData, n){
